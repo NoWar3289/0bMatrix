@@ -9,8 +9,8 @@ RESET = "\033[0m"
 PADDING_COLOR = "\033[32m"
 
 # print
-rows_in = input("Enter the number of rows: ")
-cols_in = input("Enter the number of columns: ")
+rows_in = int(input(" "))
+cols_in = int(input(" "))
 
 def matrix():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -18,17 +18,17 @@ def matrix():
     size = os.get_terminal_size()
     padding = 1
 
-    if rows_in == "MAX":
+    if rows_in == 0:
         rows = size.lines
         usable_rows = rows - padding * 2
     else:
-        usable_rows = int(rows_in)
+        usable_rows = rows_in
 
-    if cols_in == "MAX":
+    if cols_in == 0:
         cols = size.columns
         usable_cols = (cols // 2) - padding
     else:
-        usable_cols = int(cols_in)
+        usable_cols = cols_in
 
     p_0 = np.random.uniform(0, 0.75)
     p_1 = 1 - p_0
@@ -39,7 +39,7 @@ def matrix():
         print(f"{PADDING_COLOR}{" " * usable_cols}{RESET}")
 
     for row in matrix:
-        print(PADDING_COLOR + " " * (padding), end=" ")
+        print(" " * (padding), end=" ")
 
         for val in row:
             if val == 0:
@@ -47,7 +47,7 @@ def matrix():
             else:
                 print(f"{GREEN}{val}{RESET}", end=" ")
 
-        print(PADDING_COLOR + "" * (padding) + RESET)
+        print("" * (padding))
 
 while True:
     matrix()
