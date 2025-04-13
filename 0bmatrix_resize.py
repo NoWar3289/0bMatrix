@@ -16,18 +16,28 @@ ALT = [
     # "\033[38;5;255m",     # white
 ]
 
+rows_in = int(input("rows? "))
+cols_in = int(input("cols? "))
+
 def matrix():
     os.system('cls' if os.name == 'nt' else 'clear')
 
     size = os.get_terminal_size()
-    rows = size.lines
-    cols = size.columns
+    padding = 1
 
-    padding = 2
-    usable_rows = rows - padding * 2
-    usable_cols = (cols // 2) - padding
+    if rows_in == 0:
+        rows = size.lines
+        usable_rows = rows - padding * 2
+    else:
+        usable_rows = rows_in
 
-    p_0 = np.random.uniform(0, 0.85)
+    if cols_in == 0:
+        cols = size.columns
+        usable_cols = (cols // 2) - padding
+    else:
+        usable_cols = cols_in
+
+    p_0 = np.random.uniform(0, 0.75)
     p_1 = 1 - p_0
 
     matrix = np.random.choice([0, 1], size=(usable_rows, usable_cols), p=[p_0,p_1])
@@ -39,11 +49,11 @@ def matrix():
         print(" " * (padding), end=" ")
 
         for val in row:
-            if val == 0:
-                color = random.choice(GREEN)
-            else:
-                color = random.choice(ALT)
-            print(f"{color}{val}{RESET}", end=" ")
+                if val == 0:
+                    color = random.choice(GREEN)
+                else:
+                    color = random.choice(ALT)
+                print(f"{color}{val}{RESET}", end=" ")
 
         print("" * (padding))
 
